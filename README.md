@@ -1,9 +1,9 @@
 # Baseimage Introduction
-This directory contains the infrastructure for creating a new baseimage used as the basis for various docker images consumed within the nerthus Fabric workflow such as chaincode compilation/execution, unit-testing, and even cluster simulation. It is based on ubuntu-16.04 with various opensource projects added such as golang, grpc, and node.js. The actual nerthus code is injected just-in-time before deployment.  The resulting images are published to various dockerhub repositories such as [hub.docker.com](https://hub.docker.com/r/nerthus/fabric-baseimage/).
+This directory contains the infrastructure for creating a new baseimage used as the basis for various docker images consumed within the nerthus Nerthus workflow such as chaincode compilation/execution, unit-testing, and even cluster simulation. It is based on ubuntu-16.04 with various opensource projects added such as golang, grpc, and node.js. The actual nerthus code is injected just-in-time before deployment.  The resulting images are published to various dockerhub repositories such as [hub.docker.com](https://hub.docker.com/r/nerthus/nerthus-baseimage/).
 
 ![Baseimage Architectural Overview](./images/packer-overview.png)
 
-The purpose of this baseimage is to act as a bridge between a raw ubuntu/xenial configuration and the customizations required for supporting a nerthus Fabric environment.  Some of the FOSS components that need to be added to Ubuntu do not have convenient native packages.  Therefore, they are built from source.  However, the build process is generally expensive (often taking in excess of 30 minutes) so it is fairly inefficient to JIT assemble these components on demand.
+The purpose of this baseimage is to act as a bridge between a raw ubuntu/xenial configuration and the customizations required for supporting a nerthus Nerthus environment.  Some of the FOSS components that need to be added to Ubuntu do not have convenient native packages.  Therefore, they are built from source.  However, the build process is generally expensive (often taking in excess of 30 minutes) so it is fairly inefficient to JIT assemble these components on demand.
 
 Therefore, the expensive FOSS components are built into this baseimage once and subsequently cached on the public repositories so that workflows may simply consume the objects without requiring a local build cycle.
 
@@ -18,7 +18,7 @@ If a component is found to be both broadly applicable and expensive to build JIT
 
 # Usage
 
-* "make docker" will build the docker images and commit it to your local environment; e.g. "nerthus/fabric-baseimage". The docker image is also tagged with architecture and release details.
+* "make docker" will build the docker images and commit it to your local environment; e.g. "nerthus/nerthus-baseimage". The docker image is also tagged with architecture and release details.
 * "make install" build build the docker images and push them to dockerhub.
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.

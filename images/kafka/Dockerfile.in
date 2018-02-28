@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-FROM _BASE_NS_/fabric-baseimage:_BASE_TAG_
+FROM _BASE_NS_/nerthus-baseimage:_BASE_TAG_
 
 ENV SCALA_VERSION=2.11 \
     KAFKA_VERSION=1.0.0 \
