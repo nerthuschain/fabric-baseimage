@@ -1,6 +1,8 @@
+[![Build Status](https://travis-ci.org/nerthuschain/nerthus-baseimage.svg?branch=master)](https://travis-ci.org/nerthuschain/nerthus-baseimage)
+
+
 # Baseimage Introduction
 This directory contains the infrastructure for creating a new baseimage used as the basis for various docker images consumed within the nerthus Nerthus workflow such as chaincode compilation/execution, unit-testing, and even cluster simulation. It is based on ubuntu-16.04 with various opensource projects added such as golang, grpc, and node.js. The actual nerthus code is injected just-in-time before deployment.  The resulting images are published to various dockerhub repositories such as [hub.docker.com](https://hub.docker.com/r/nerthus/nerthus-baseimage/).
-
 ![Baseimage Architectural Overview](./images/packer-overview.png)
 
 The purpose of this baseimage is to act as a bridge between a raw ubuntu/xenial configuration and the customizations required for supporting a nerthus Nerthus environment.  Some of the FOSS components that need to be added to Ubuntu do not have convenient native packages.  Therefore, they are built from source.  However, the build process is generally expensive (often taking in excess of 30 minutes) so it is fairly inefficient to JIT assemble these components on demand.

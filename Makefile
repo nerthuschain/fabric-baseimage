@@ -6,7 +6,7 @@
 
 DOCKER_NS ?= nerthus
 BASENAME ?= $(DOCKER_NS)/nerthus
-VERSION ?= 0.0.0
+VERSION ?= 0.0.1
 IS_RELEASE=false
 
 ARCH=$(shell uname -m)
@@ -56,7 +56,7 @@ ifeq ($(DOCKER_BASE), )
 $(error "Architecture \"$(ARCH)\" is unsupported")
 endif
 
-DOCKER_IMAGES = baseos baseimage
+DOCKER_IMAGES = baseimage baseos
 DUMMY = .$(DOCKER_TAG)
 
 all: docker dependent-images
@@ -87,6 +87,7 @@ build/docker/%/.push: build/docker/%/$(DUMMY)
 
 docker: $(patsubst %,build/docker/%/$(DUMMY),$(DOCKER_IMAGES))
 
+# push build images to docker hub
 install: $(patsubst %,build/docker/%/.push,$(DOCKER_IMAGES))
 
 build/image/%/Dockerfile: images/%/Dockerfile.in
@@ -105,6 +106,9 @@ build/image/%/.dummy: Makefile build/image/%/payload build/image/%/Dockerfile
 	$(DBUILD) -t $(DOCKER_NS)/nerthus-$(TARGET) $(@D)
 	docker tag $(DOCKER_NS)/nerthus-$(TARGET) $(DOCKER_NS)/nerthus-$(TARGET):$(BASE_VERSION)
 	@touch $@
+
+test:
+	true
 
 clean:
 	-rm -rf build
