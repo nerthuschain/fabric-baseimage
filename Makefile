@@ -4,9 +4,9 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DOCKER_NS ?= hyperledger
-BASENAME ?= $(DOCKER_NS)/fabric
-VERSION ?= 0.4.7
+DOCKER_NS ?= nerthus
+BASENAME ?= $(DOCKER_NS)/cnts
+VERSION ?= 0.0.0
 IS_RELEASE=false
 
 ARCH=$(shell uname -m)
@@ -49,7 +49,7 @@ DBUILD = docker build $(DOCKER_BUILD_FLAGS)
 
 # NOTE this is for building the dependent images (kafka, zk, couchdb)
 BASE_IMAGE_RELEASE=0.4.5
-BASE_DOCKER_NS ?= hyperledger
+BASE_DOCKER_NS ?= nerthus
 BASE_DOCKER_TAG=$(ARCH)-$(BASE_IMAGE_RELEASE)
 
 ifeq ($(DOCKER_BASE), )
@@ -124,8 +124,8 @@ build/image/%/Dockerfile: images/%/Dockerfile.in
 build/image/%/.dummy: Makefile build/image/%/payload build/image/%/Dockerfile
 	$(eval TARGET = ${patsubst build/image/%/.dummy,%,${@}})
 	@echo "Building docker $(TARGET)-image"
-	$(DBUILD) -t $(DOCKER_NS)/fabric-$(TARGET) $(@D)
-	docker tag $(DOCKER_NS)/fabric-$(TARGET) $(DOCKER_NS)/fabric-$(TARGET):$(BASE_VERSION)
+	$(DBUILD) -t $(DOCKER_NS)/nerthus-$(TARGET) $(@D)
+	docker tag $(DOCKER_NS)/nerthus-$(TARGET) $(DOCKER_NS)/nerthus-$(TARGET):$(BASE_VERSION)
 	@touch $@
 
 clean:

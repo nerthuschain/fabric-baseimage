@@ -112,4 +112,4 @@ export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 cd ~/
 
 # Make our versioning persistent
-echo $BASEIMAGE_RELEASE > /etc/hyperledger-baseimage-release
+echo $BASEIMAGE_RELEASE > /etc/nerthus-baseimage-release
