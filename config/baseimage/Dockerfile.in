@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-FROM _NS_/nerthus-basejvm:_TAG_
+FROM _NS_/nerthus-baseos:_TAG_
 COPY scripts /tmp/scripts
 RUN cd /tmp/scripts && \
     common/packages.sh && \

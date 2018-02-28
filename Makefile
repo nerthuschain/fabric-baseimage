@@ -5,7 +5,7 @@
 #
 
 DOCKER_NS ?= nerthus
-BASENAME ?= $(DOCKER_NS)/cnts
+BASENAME ?= $(DOCKER_NS)/nerthus
 VERSION ?= 0.0.0
 IS_RELEASE=false
 
@@ -56,13 +56,12 @@ ifeq ($(DOCKER_BASE), )
 $(error "Architecture \"$(ARCH)\" is unsupported")
 endif
 
-DOCKER_IMAGES = baseos basejvm baseimage
+DOCKER_IMAGES = baseos baseimage
 DUMMY = .$(DOCKER_TAG)
 
 all: docker dependent-images
-
-build/docker/basejvm/$(DUMMY): build/docker/baseos/$(DUMMY)
-build/docker/baseimage/$(DUMMY): build/docker/basejvm/$(DUMMY)
+ 
+build/docker/baseimage/$(DUMMY): build/docker/baseos/$(DUMMY)
 
 build/docker/%/$(DUMMY):
 	$(eval TARGET = ${patsubst build/docker/%/$(DUMMY),%,${@}})
@@ -89,27 +88,6 @@ build/docker/%/.push: build/docker/%/$(DUMMY)
 docker: $(patsubst %,build/docker/%/$(DUMMY),$(DOCKER_IMAGES))
 
 install: $(patsubst %,build/docker/%/.push,$(DOCKER_IMAGES))
-
-dependent-images: couchdb kafka zookeeper
-
-couchdb: build/image/couchdb/.dummy
-
-kafka: build/image/kafka/.dummy
-
-zookeeper: build/image/zookeeper/.dummy
-
-build/image/%/payload:
-	mkdir -p $@
-	cp $^ $@
-
-build/image/zookeeper/payload:  images/zookeeper/docker-entrypoint.sh
-build/image/kafka/payload:      images/kafka/docker-entrypoint.sh \
-				images/kafka/kafka-run-class.sh
-build/image/couchdb/payload:	images/couchdb/docker-entrypoint.sh \
-				images/couchdb/local.ini \
-				images/couchdb/vm.args
-
-.PRECIOUS: build/image/%/Dockerfile
 
 build/image/%/Dockerfile: images/%/Dockerfile.in
 	@cat $< \

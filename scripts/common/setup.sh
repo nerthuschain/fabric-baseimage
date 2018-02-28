@@ -64,23 +64,24 @@ export GOPATH=$GOPATH
 export PATH=\$PATH:$GOROOT/bin:$GOPATH/bin
 EOF
 
-# ----------------------------------------------------------------
-# Install NodeJS
-# ----------------------------------------------------------------
-NODE_VER=8.9.4
+# # ----------------------------------------------------------------
+# # Install NodeJS
+# # ----------------------------------------------------------------
 
-ARCH=`uname -m | sed 's|i686|x86|' | sed 's|x86_64|x64|'`
-NODE_PKG=node-v$NODE_VER-linux-$ARCH.tar.gz
-SRC_PATH=/tmp/$NODE_PKG
+# NODE_VER=8.9.4
 
-# First remove any prior packages downloaded in case of failure
-cd /tmp
-rm -f node*.tar.gz
-wget --quiet https://nodejs.org/dist/v$NODE_VER/$NODE_PKG
-cd /usr/local && sudo tar --strip-components 1 -xzf $SRC_PATH
+# ARCH=`uname -m | sed 's|i686|x86|' | sed 's|x86_64|x64|'`
+# NODE_PKG=node-v$NODE_VER-linux-$ARCH.tar.gz
+# SRC_PATH=/tmp/$NODE_PKG
 
-# Install python2.7
-apt-get -y install python
+# # First remove any prior packages downloaded in case of failure
+# cd /tmp
+# rm -f node*.tar.gz
+# wget --quiet https://nodejs.org/dist/v$NODE_VER/$NODE_PKG
+# cd /usr/local && sudo tar --strip-components 1 -xzf $SRC_PATH
+
+# # Install python2.7
+# apt-get -y install python
 
 # ----------------------------------------------------------------
 # Install protocol buffer support
