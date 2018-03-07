@@ -83,33 +83,33 @@ EOF
 # # Install python2.7
 # apt-get -y install python
 
-# ----------------------------------------------------------------
-# Install protocol buffer support
-#
-# See https://github.com/google/protobuf
-# ----------------------------------------------------------------
-PROTOBUF_VER=3.1.0
-PROTOBUF_PKG=v$PROTOBUF_VER.tar.gz
+# # ----------------------------------------------------------------
+# # Install protocol buffer support
+# #
+# # See https://github.com/google/protobuf
+# # ----------------------------------------------------------------
+# PROTOBUF_VER=3.1.0
+# PROTOBUF_PKG=v$PROTOBUF_VER.tar.gz
 
-cd /tmp
-wget --quiet https://github.com/google/protobuf/archive/$PROTOBUF_PKG
-tar xpzf $PROTOBUF_PKG
-cd protobuf-$PROTOBUF_VER
-./autogen.sh
-# NOTE: By default, the package will be installed to /usr/local. However, on many platforms, /usr/local/lib is not part of LD_LIBRARY_PATH.
-# You can add it, but it may be easier to just install to /usr instead.
-#
-# To do this, invoke configure as follows:
-#
+# cd /tmp
+# wget --quiet https://github.com/google/protobuf/archive/$PROTOBUF_PKG
+# tar xpzf $PROTOBUF_PKG
+# cd protobuf-$PROTOBUF_VER
+# ./autogen.sh
+# # NOTE: By default, the package will be installed to /usr/local. However, on many platforms, /usr/local/lib is not part of LD_LIBRARY_PATH.
+# # You can add it, but it may be easier to just install to /usr instead.
+# #
+# # To do this, invoke configure as follows:
+# #
+# # ./configure --prefix=/usr
+# #
+# #./configure
 # ./configure --prefix=/usr
-#
-#./configure
-./configure --prefix=/usr
 
-make
-make check
-make install
-export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+# make
+# make check
+# make install
+# export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 cd ~/
 
 # Make our versioning persistent
