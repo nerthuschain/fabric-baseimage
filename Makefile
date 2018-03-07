@@ -80,16 +80,14 @@ build/docker/%/$(DUMMY):
 	@touch $@
 
 build/docker/%/.push: build/docker/%/$(DUMMY)
-	@docker login \
-		--username=$(DOCKER_HUB_USERNAME) \
-		--password=$(DOCKER_HUB_PASSWORD)
+	@docker login -u="$(DOCKER_HUB_USERNAME)" -p="$(DOCKER_HUB_PASSWORD)"
 	@docker push $(BASENAME)-$(patsubst build/docker/%/.push,%,$@):$(DOCKER_TAG)
 
 # build all images
 build: $(patsubst %,build/docker/%/$(DUMMY),$(DOCKER_IMAGES))
 
 # push build images to docker hub
-install: $(patsubst %,build/docker/%/.push,$(DOCKER_IMAGES))
+deploy: $(patsubst %,build/docker/%/.push,$(DOCKER_IMAGES))
 
 build/image/%/Dockerfile: images/%/Dockerfile.in
 	@cat $< \
