@@ -38,7 +38,7 @@ GO_VER=1.9.2
 if echo $BINTARGETS | grep -q `uname -m`; then
    cd /tmp
    wget --quiet --no-check-certificate https://storage.googleapis.com/golang/go${GO_VER}.linux-${ARCH}.tar.gz
-   tar -xvf go${GO_VER}.linux-${ARCH}.tar.gz
+   tar -xzf go${GO_VER}.linux-${ARCH}.tar.gz
    mv go $GOROOT
    chmod 775 $GOROOT
 # Otherwise, build Golang from source
