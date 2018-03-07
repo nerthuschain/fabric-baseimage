@@ -9,9 +9,14 @@ script:
 
 deploy:
 - provider: script
-  script: make deploy
+  script: IS_RELEASE=true make deploy
   on:
     branch: master
+
+- provider: script
+  script: make deploy
+  on:
+    branch: develop
 
 notifications:
   email: false
