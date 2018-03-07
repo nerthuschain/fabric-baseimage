@@ -7,7 +7,7 @@
 DOCKER_NS ?= nerthus
 BASENAME ?= $(DOCKER_NS)/nerthus
 VERSION ?= 0.0.1
-IS_RELEASE=false
+IS_RELEASE ?=false
 
 ARCH=$(shell uname -m)
 BASE_VERSION ?= $(ARCH)-$(VERSION)
@@ -85,7 +85,8 @@ build/docker/%/.push: build/docker/%/$(DUMMY)
 		--password=$(DOCKER_HUB_PASSWORD)
 	@docker push $(BASENAME)-$(patsubst build/docker/%/.push,%,$@):$(DOCKER_TAG)
 
-docker: $(patsubst %,build/docker/%/$(DUMMY),$(DOCKER_IMAGES))
+# build all images
+build: $(patsubst %,build/docker/%/$(DUMMY),$(DOCKER_IMAGES))
 
 # push build images to docker hub
 install: $(patsubst %,build/docker/%/.push,$(DOCKER_IMAGES))
